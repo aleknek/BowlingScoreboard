@@ -1,0 +1,59 @@
+body {
+    font: .8em Comic Sans MS;
+    background: #F8F8FF;
+}
+
+.tableBowlingScore {
+    border: 1px solid grey;
+    border-spacing: 0px;
+    width: 100%;
+    /*border-color: #C3C3C3;*/
+    margin-top: 20px;
+}
+
+.tableChoose {
+    margin: 20px -8px;
+}
+
+.buttonNewGame {
+    width: 200px;
+    height: 40px;
+    background: #D3D3D3;
+    font: 20px Comic Sans MS;
+    margin: 5px;
+    border-radius: 8px;
+}
+
+.tdChoose {
+    padding: 5px;
+    width: 0%;
+    border: none;
+}
+
+.total {
+    font-size: xx-large;
+}
+
+th {
+    font-size: xx-large;
+    font-weight: 600;
+    width: 10%;
+    border: 1px solid grey;
+    text-align: center;
+    height: 100px;
+}
+
+td {
+    width: 4.762%;
+    font-size: xx-large;
+    border: 1px solid grey;
+    text-align: center;
+    height: 50px;
+}
+
+select {
+    padding: 3px;
+    margin: 0;
+    width: 100px;
+}
+

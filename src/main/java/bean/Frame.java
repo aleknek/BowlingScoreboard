@@ -2,8 +2,11 @@ package bean;
 
 import dao.FrameDAO;
 
-public class Frame {
+import java.io.Serializable;
 
+public class Frame implements Serializable {
+
+    private int id;
     private int scoreOfFirstThrow;
     private int scoreOfSecondThrow;
     private int numberOfThrow;
@@ -12,7 +15,8 @@ public class Frame {
     public Frame() {
     }
 
-    public Frame(int throwNumber, String view) {
+    public Frame(int id, int throwNumber, String view) {
+        this.id = id;
         this.numberOfThrow = throwNumber;
         this.view = view;
     }
@@ -59,6 +63,42 @@ public class Frame {
 
     public int getScore() {
         return new FrameDAO().getScoreOfFrame(this);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Frame)) return false;
+
+        Frame frame = (Frame) o;
+
+        if (id != frame.id) return false;
+        if (getScoreOfFirstThrow() != frame.getScoreOfFirstThrow()) return false;
+        if (getScoreOfSecondThrow() != frame.getScoreOfSecondThrow()) return false;
+        if (getNumberOfThrow() != frame.getNumberOfThrow()) return false;
+        return getView() != null ? getView().equals(frame.getView()) : frame.getView() == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + getScoreOfFirstThrow();
+        result = 31 * result + getScoreOfSecondThrow();
+        result = 31 * result + getNumberOfThrow();
+        result = 31 * result + (getView() != null ? getView().hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Frame{" +
+                "id=" + id +
+                ", scoreOfFirstThrow=" + scoreOfFirstThrow +
+                ", scoreOfSecondThrow=" + scoreOfSecondThrow +
+                ", numberOfThrow=" + numberOfThrow +
+                ", view='" + view + '\'' +
+                '}';
     }
 }
 

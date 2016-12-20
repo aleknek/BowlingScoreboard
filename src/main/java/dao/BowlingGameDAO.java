@@ -6,7 +6,6 @@ import bean.Frame;
 public class BowlingGameDAO {
 
     BowlingGame bowlingGame;
-    FrameDAO frameDAO = new FrameDAO();
 
     public BowlingGameDAO() {
         this.bowlingGame = BowlingGame.getInstance();
@@ -30,7 +29,7 @@ public class BowlingGameDAO {
 
         Frame currentFrame = bowlingGame.getCurrentFrame();
 
-        if (frameDAO.isStrike(currentFrame) || frameDAO.isSpare(currentFrame) || currentFrame.getNumberOfThrow() == 0) {
+        if (new FrameDAO().isStrike(currentFrame) || new FrameDAO().isSpare(currentFrame) || currentFrame.getNumberOfThrow() == 0) {
             bowlingGame.setCurrentFrame(getNextFrame(currentFrame));
         }
     }

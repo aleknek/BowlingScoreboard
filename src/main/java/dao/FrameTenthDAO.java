@@ -2,12 +2,9 @@ package dao;
 
 import bean.FrameTenth;
 
-public class FrameTenthDAO extends FrameDAO{
+public class FrameTenthDAO extends FrameDAO {
 
-    public FrameTenthDAO() {
-    }
-
-    public static void setScore(FrameTenth currentFrame, int countOfPinsKnockedDown) {
+    public void setScore(FrameTenth currentFrame, int countOfPinsKnockedDown) {
 
         if (currentFrame.getNumberOfThrow() == 1) {
             currentFrame.setScoreOfFirstThrow(countOfPinsKnockedDown);
@@ -28,7 +25,7 @@ public class FrameTenthDAO extends FrameDAO{
         return frame.getScoreOfFirstThrow() + frame.getScoreOfSecondThrow() + frame.getScoreOfThirdThrow();
     }
 
-    public static String parseValue(int value) {
+    public String parseValue(int value) {
         return String.valueOf(value).replace("10", "X").replace("0", "-");
     }
 

@@ -1,9 +1,10 @@
 package controllers;
 
 import bean.BowlingGame;
-import bean.Frame;;
+import bean.Frame;
 import dao.BowlingGameDAO;
 import dao.FrameDAO;
+import dao.FrameTenthDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,22 +44,19 @@ public class BowlingGameController extends HttpServlet {
 
         } else {
 
-            bowlingGame.getInstance().getCurrentFrame().setScore(Integer.valueOf(countOfPinsKnockedDown));
-            updateCurrentFrame();
+            FrameDAO frameDAO = new FrameTenthDAO();
+            bowlingGame.getCurrentFrame().setScore(Integer.valueOf(countOfPinsKnockedDown));
+            new BowlingGameDAO().updateCurrentFrame();
 
-            Frame currentFrame = bowlingGame.getInstance().getCurrentFrame();
+            Frame currentFrame = bowlingGame.getCurrentFrame();
 
             req.setAttribute("maxCountPins", currentFrame.getNumberOfRemainingPins());
             req.setAttribute("bowlingGame", bowlingGame);
             req.setAttribute("frames", bowlingGame.getFrames());
-            req.setAttribute("frameDAO", new FrameDAO());
+            req.setAttribute("frameDAO", frameDAO);
             req.setAttribute("endNewGame", currentFrame.getNumberOfThrow() == -1);
 
             req.getRequestDispatcher("/WEB-INF/JSP/bowlingGame.jsp").forward(req, resp);
         }
-    }
-
-    public void updateCurrentFrame() {
-        new BowlingGameDAO().updateCurrentFrame();
     }
 }

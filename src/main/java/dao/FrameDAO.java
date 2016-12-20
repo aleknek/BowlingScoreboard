@@ -5,10 +5,7 @@ import constants.Constants;
 
 public class FrameDAO {
 
-    public FrameDAO() {
-    }
-
-    public static void setScore(Frame currentFrame, int countOfPinsKnockedDown) {
+    public void setScore(Frame currentFrame, int countOfPinsKnockedDown) {
 
         if (currentFrame.getNumberOfThrow() == 1) {
             currentFrame.setScoreOfFirstThrow(countOfPinsKnockedDown);
@@ -33,11 +30,11 @@ public class FrameDAO {
         }
     }
 
-    public static boolean isSpare(Frame frame) {
+    public boolean isSpare(Frame frame) {
         return frame.getScoreOfFirstThrow() + frame.getScoreOfSecondThrow() == 10;
     }
 
-    public static boolean isStrike(Frame frame) {
+    public boolean isStrike(Frame frame) {
         return frame.getScoreOfFirstThrow() == 10;
     }
 
@@ -66,7 +63,7 @@ public class FrameDAO {
         return frame.getView().equals(Constants.EMPTY_VIEW_FRAME) || frame.getView().equals(Constants.EMPTY_VIEW_FRAME_TENTH);
     }
 
-    public static String parseValue(int value) {
+    public String parseValue(int value) {
         return String.valueOf(value).replace("0", "-");
     }
 

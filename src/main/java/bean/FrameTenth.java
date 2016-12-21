@@ -1,6 +1,6 @@
 package bean;
 
-import dao.FrameTenthDAO;
+import service.FrameTenthService;
 
 import java.io.Serializable;
 
@@ -28,11 +28,11 @@ public class FrameTenth extends Frame implements Serializable {
     }
 
     public void setScore(int score) {
-        new FrameTenthDAO().setScore(this, score);
+        new FrameTenthService().setScore(this, score);
     }
 
     public int getNumberOfRemainingPins() {
-        return new FrameTenthDAO().getNumberOfRemainingPins(this);
+        return new FrameTenthService().getNumberOfRemainingPins(this);
     }
 
     @Override

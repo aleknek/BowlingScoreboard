@@ -1,9 +1,10 @@
-package dao;
+package service;
 
+import bean.BowlingGame;
 import bean.Frame;
 import constants.Constants;
 
-public class FrameDAO {
+public class FrameService {
 
     public void setScore(Frame currentFrame, int countOfPinsKnockedDown) {
 
@@ -39,7 +40,7 @@ public class FrameDAO {
     }
 
     public int addRewardPointsStrike(Frame frame) {
-        Frame nextFrame = new BowlingGameDAO().getNextFrame(frame);
+        Frame nextFrame = getNextFrame(frame);
         if (isStrike(nextFrame)) {
             return getSumPointsStrike(nextFrame);
         } else {
@@ -48,11 +49,11 @@ public class FrameDAO {
     }
 
     public int addRewardPointsSpare(Frame frame) {
-        return new BowlingGameDAO().getNextFrame(frame).getScoreOfFirstThrow();
+        return getNextFrame(frame).getScoreOfFirstThrow();
     }
 
     public int getSumPointsStrike(Frame frame) {
-        return frame.getScoreOfFirstThrow() + new BowlingGameDAO().getNextFrame(frame).getScoreOfFirstThrow();
+        return frame.getScoreOfFirstThrow() + getNextFrame(frame).getScoreOfFirstThrow();
     }
 
     public int getSumThrows(Frame frame) {
@@ -69,5 +70,28 @@ public class FrameDAO {
 
     public int getNumberOfRemainingPins(Frame frame) {
         return 10 - frame.getScoreOfFirstThrow();
+    }
+
+    public Frame getNextFrame(Frame frame) {
+
+        int indexOfCurrentFrame = getIndexFrame(frame);
+
+        if (indexOfCurrentFrame == BowlingGame.getInstance().getFrames().size() - 1) {
+            return frame;
+        }
+        return BowlingGame.getInstance().getFrames().get(indexOfCurrentFrame + 1);
+    }
+
+    public int getIndexFrame(Frame frame) {
+        return BowlingGame.getInstance().getFrames().indexOf(frame);
+    }
+
+    public void updateCurrentFrame() {
+
+        Frame currentFrame = BowlingGame.getInstance().getCurrentFrame();
+
+        if (isStrike(currentFrame) || isSpare(currentFrame) || currentFrame.getNumberOfThrow() == 0) {
+            BowlingGame.getInstance().setCurrentFrame(getNextFrame(currentFrame));
+        }
     }
 }

@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BowlingGame implements Serializable{
+public class BowlingGame implements Serializable {
 
     private static BowlingGame instance;
     private List<Frame> frames = new ArrayList<Frame>();

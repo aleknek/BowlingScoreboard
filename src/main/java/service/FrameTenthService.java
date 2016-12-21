@@ -1,8 +1,8 @@
-package dao;
+package service;
 
 import bean.FrameTenth;
 
-public class FrameTenthDAO extends FrameDAO {
+public class FrameTenthService extends FrameService {
 
     public void setScore(FrameTenth currentFrame, int countOfPinsKnockedDown) {
 

@@ -67,20 +67,20 @@
                         <c:forEach items="${frames}" var="frame">
                             <c:choose>
                                 <c:when test="${frames.indexOf(frame) != 9}">
-                                    <c:if test="${frameDAO.isNotActiveFrame(frame)}">
+                                    <c:if test="${frameService.isNotActiveFrame(frame)}">
                                         <th colspan="2"></th>
                                     </c:if>
-                                    <c:if test="${!frameDAO.isNotActiveFrame(frame)}">
-                                        <c:set var="total" value="${total + frameDAO.getScoreOfFrame(frame)}"/>
+                                    <c:if test="${!frameService.isNotActiveFrame(frame)}">
+                                        <c:set var="total" value="${total + frameService.getScoreOfFrame(frame)}"/>
                                         <th colspan="2">${total}</th>
                                     </c:if>
                                 </c:when>
                                 <c:otherwise>
-                                    <c:if test="${frameDAO.isNotActiveFrame(frame)}">
+                                    <c:if test="${frameService.isNotActiveFrame(frame)}">
                                         <th colspan="3"></th>
                                     </c:if>
-                                    <c:if test="${!frameDAO.isNotActiveFrame(frame)}">
-                                        <c:set var="total" value="${total + frameDAO.getScoreOfFrame(frame)}"/>
+                                    <c:if test="${!frameService.isNotActiveFrame(frame)}">
+                                        <c:set var="total" value="${total + frameService.getScoreOfFrame(frame)}"/>
                                         <th colspan="3">${total}</th>
                                     </c:if>
                                 </c:otherwise>

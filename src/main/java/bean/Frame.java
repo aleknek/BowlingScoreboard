@@ -1,6 +1,6 @@
 package bean;
 
-import dao.FrameDAO;
+import service.FrameService;
 
 import java.io.Serializable;
 
@@ -54,15 +54,15 @@ public class Frame implements Serializable {
     }
 
     public void setScore(int score) {
-        new FrameDAO().setScore(this, score);
+        new FrameService().setScore(this, score);
     }
 
     public int getNumberOfRemainingPins() {
-        return new FrameDAO().getNumberOfRemainingPins(this);
+        return new FrameService().getNumberOfRemainingPins(this);
     }
 
     public int getScore() {
-        return new FrameDAO().getScoreOfFrame(this);
+        return new FrameService().getScoreOfFrame(this);
     }
 
     @Override

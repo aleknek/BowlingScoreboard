@@ -2,9 +2,8 @@ package controllers;
 
 import bean.BowlingGame;
 import bean.Frame;
-import dao.BowlingGameDAO;
-import dao.FrameDAO;
-import dao.FrameTenthDAO;
+import service.FrameService;
+import service.FrameTenthService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,32 +30,40 @@ public class BowlingGameController extends HttpServlet {
         req.setAttribute("newGame", true);
         req.setAttribute("endNewGame", false);
         req.setAttribute("maxCountPins", 10);
-        BowlingGame bowlingGame = BowlingGame.getInstance();
 
         if (Boolean.parseBoolean(newGame)) {
-
-            bowlingGame.setCurrentFrame(null);
-            bowlingGame.setFrames(null);
-            BowlingGame.setInstance(null);
-
-            req.setAttribute("bowlingGame", BowlingGame.getInstance());
-            req.getRequestDispatcher("/WEB-INF/JSP/bowlingGame.jsp").forward(req, resp);
-
+            setParametersOfNewGame(req, resp, BowlingGame.getInstance());
         } else {
-
-            FrameDAO frameDAO = new FrameTenthDAO();
-            bowlingGame.getCurrentFrame().setScore(Integer.valueOf(countOfPinsKnockedDown));
-            new BowlingGameDAO().updateCurrentFrame();
-
-            Frame currentFrame = bowlingGame.getCurrentFrame();
-
-            req.setAttribute("maxCountPins", currentFrame.getNumberOfRemainingPins());
-            req.setAttribute("bowlingGame", bowlingGame);
-            req.setAttribute("frames", bowlingGame.getFrames());
-            req.setAttribute("frameDAO", frameDAO);
-            req.setAttribute("endNewGame", currentFrame.getNumberOfThrow() == -1);
-
-            req.getRequestDispatcher("/WEB-INF/JSP/bowlingGame.jsp").forward(req, resp);
+            setParametersOfCurrentGame(req, resp, countOfPinsKnockedDown);
         }
+    }
+
+    public void setParametersOfNewGame(HttpServletRequest req, HttpServletResponse resp, BowlingGame bowlingGame) throws ServletException, IOException {
+
+        bowlingGame.setCurrentFrame(null);
+        bowlingGame.setFrames(null);
+        BowlingGame.setInstance(null);
+        getRequestDispatcher(req, resp);
+    }
+
+    public void setParametersOfCurrentGame(HttpServletRequest req, HttpServletResponse resp, String countOfPinsKnockedDown) throws ServletException, IOException {
+
+        BowlingGame bowlingGame = BowlingGame.getInstance();
+
+        FrameService frameService = new FrameTenthService();
+        bowlingGame.getCurrentFrame().setScore(Integer.valueOf(countOfPinsKnockedDown));
+        frameService.updateCurrentFrame();
+
+        Frame currentFrame = bowlingGame.getCurrentFrame();
+
+        req.setAttribute("maxCountPins", currentFrame.getNumberOfRemainingPins());
+        req.setAttribute("frames", bowlingGame.getFrames());
+        req.setAttribute("frameService", frameService);
+        req.setAttribute("endNewGame", currentFrame.getNumberOfThrow() == -1);
+        getRequestDispatcher(req, resp);
+    }
+
+    public void getRequestDispatcher(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("/WEB-INF/JSP/bowlingGame.jsp").forward(req, resp);
     }
 }

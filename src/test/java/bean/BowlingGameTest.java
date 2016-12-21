@@ -1,8 +1,6 @@
 package bean;
 
-import dao.BowlingGameDAO;
-import dao.FrameDAO;
-import dao.FrameTenthDAO;
+import service.FrameService;
 import org.junit.Test;
 
 import java.util.Iterator;
@@ -52,11 +50,9 @@ public class BowlingGameTest {
 
     public void fillValuesFrames(int value, int countFrom, int countTo) {
 
-        BowlingGameDAO bowlingGameDAO = new BowlingGameDAO();
-
         for (int i = countFrom; i < countTo; i++) {
             bowlingGame.getCurrentFrame().setScore(value);
-            bowlingGameDAO.updateCurrentFrame();
+            new FrameService().updateCurrentFrame();
         }
     }
 
